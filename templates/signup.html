@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up – GymTracker{% endblock %}
+
+{% block extra_css %}
+<style>
+  .auth-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 100px auto;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    text-align: center;
+  }
+  .app-name {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #FF5722;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem 0;
+  }
+  .app-tagline {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+  }
+  .auth-container label {
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.35rem;
+  }
+  .auth-container input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #ECEFF1;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  .auth-container input:focus {
+    outline: none;
+    border-color: #FF5722;
+  }
+  .auth-container button {
+    width: 100%;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    background: #FF5722;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .auth-container button:hover {
+    background: #E64A19;
+  }
+  .signup-link {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #FF5722;
+  }
+  .signup-link a {
+    color: #FF5722;
+    text-decoration: none;
+  }
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <h1 class="app-name">GymTracker</h1>
+  <p class="app-tagline">Create an account to track your gym attendance</p>
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+  <form method="POST" action="{{ url_for('signup') }}">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required autofocus placeholder="Enter a username" value="{{ request.form.get('username', '') }}">
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required placeholder="Enter your password">
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required placeholder="Enter your email" value="{{ request.form.get('email', '') }}">
+
+    <button type="submit">Sign Up</button>
+  </form>
+  
+  <div class="signup-link">
+    <p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+  </div>
+</div>
+{% endblock %}

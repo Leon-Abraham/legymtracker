@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Update Payment – GymTracker{% endblock %}
+
+{% block extra_css %}
+<style>
+  .payment-card { 
+    padding: 1.5rem; 
+    background-color: #fff; 
+    border-radius: 12px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+  .payment-card .input-date {
+    width: 100%; 
+    padding: 0.75rem; 
+    font-size: 1rem;
+    border: 1px solid #ECEFF1;
+    border-radius: 8px;
+  }
+  .payment-card .btn {
+    background-color: #FF5722; 
+    color: #fff; 
+    padding: 0.75rem 1.25rem; 
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="payment-card">
+  <h1>Update Payment Information</h1>
+  <form method="POST">
+    <label for="payment_date">Payment Date</label>
+    <input type="date" id="payment_date" name="payment_date" value="{{ last_payment_date }}" class="input-date" required>
+    <div class="payment-details">
+      <p><strong>Last Payment:</strong> {{ last_payment_date }}</p>
+      <p><strong>Expires on:</strong> {{ expiry_date }}</p>
+    </div>
+    <button type="submit" class="btn">Update Payment</button>
+  </form>
+</div>
+{% endblock %}

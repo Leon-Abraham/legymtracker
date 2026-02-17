@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Log Workout – Gym Tracker{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Log Workout</h1>
+    <p>Record your gym visit for the day (or pick another date).</p>
+    <form method="post" action="{{ url_for('log_workout') }}">
+        <label for="workout_date">Date</label>
+        <input type="date" id="workout_date" name="workout_date" value="{{ today }}" required>
+        <label for="workout_time">Time (optional)</label>
+        <input type="time" id="workout_time" name="workout_time" value="{{ default_time }}">
+        <button type="submit" class="btn btn-primary">Log workout</button>
+    </form>
+</div>
+{% endblock %}
