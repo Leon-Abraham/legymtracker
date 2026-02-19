@@ -2,58 +2,32 @@
 
 {% block title %}Login – GymTracker{% endblock %}
 
-{% block extra_css %}
-<style>
-  .login-page { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
-  .login-card {
-    width: 100%; max-width: 420px;
-    background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    padding: 2.5rem; text-align: center;
-  }
-  .app-name { font-size: 2.25rem; font-weight: 800; color: #FF5722; letter-spacing: -0.02em; margin: 0 0 0.5rem 0; }
-  .app-tagline { color: #666; font-size: 0.95rem; margin-bottom: 1.75rem; }
-  .login-card label { display: block; text-align: left; font-weight: 600; color: #333; margin-bottom: 0.35rem; }
-  .login-card input {
-    width: 100%; padding: 0.75rem 1rem; margin-bottom: 1rem; border: 2px solid #ECEFF1; border-radius: 10px;
-    font-size: 1rem; transition: border-color 0.2s;
-  }
-  .login-card input:focus { outline: none; border-color: #FF5722; }
-  .login-card button {
-    width: 100%; padding: 0.85rem; margin-top: 0.5rem;
-    background: #FF5722; color: #fff; border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 600;
-    cursor: pointer; transition: background 0.2s;
-  }
-  .login-card button:hover { background: #E64A19; }
-  .signup-link {
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    color: #FF5722;
-  }
-  .signup-link a {
-    color: #FF5722;
-    text-decoration: none;
-  }
-  .signup-link a:hover {
-    text-decoration: underline;
-  }
-</style>
+{% block hero %}
+<section class="hero">
+  <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+  <div class="hero-content">
+    <h1>GymTracker</h1>
+    <p class="tagline">Track your workouts, hit your goals, stay consistent.</p>
+  </div>
+</section>
 {% endblock %}
 
 {% block content %}
-<div class="login-page">
-  <div class="login-card">
-    <h1 class="app-name">GymTracker</h1>
-    <p class="app-tagline">Log in to track your gym attendance</p>
-    <form method="post" action="{{ url_for('login') }}">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required autofocus placeholder="Your username">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required placeholder="Your password">
-      <button type="submit">Log in</button>
-    </form>
-
-    <div class="signup-link">
-      <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a></p>
+<div class="auth-page">
+  <div class="auth-main">
+    <div class="auth-card">
+      <h1 class="app-name">Welcome back</h1>
+      <p class="app-tagline">Log in to track your gym attendance</p>
+      <form method="post" action="{{ url_for('login') }}">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required autofocus placeholder="Your username">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required placeholder="Your password">
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+      <div class="signup-link">
+        <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a></p>
+      </div>
     </div>
   </div>
 </div>

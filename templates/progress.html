@@ -2,29 +2,19 @@
 
 {% block title %}Progress – GymTracker{% endblock %}
 
-{% block extra_css %}
-<style>
-  .progress-stat { font-size: 2rem; font-weight: 800; color: #FF5722; margin: 0.5rem 0; }
-  .progress-dates { list-style: none; padding: 0; margin: 1rem 0 0 0; }
-  .progress-dates li { padding: 0.5rem 0; border-bottom: 1px solid #ECEFF1; }
-  .btn { display: inline-block; padding: 0.65rem 1.25rem; border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 1rem; background: #4CAF50; color: #fff; }
-  .btn:hover { opacity: 0.9; }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="card">
   <h1>Progress</h1>
   <p>Gym visits for <strong>{{ month }}</strong>: <span class="progress-stat">{{ count }}</span></p>
   {% if dates %}
-    <p>Dates you worked out:</p>
-    <ul class="progress-dates">
-      {% for d in dates %}
-        <li>{{ d }}</li>
-      {% endfor %}
-    </ul>
+  <p>Dates you worked out:</p>
+  <ul class="progress-dates">
+    {% for d in dates %}
+    <li>{{ d }}</li>
+    {% endfor %}
+  </ul>
   {% else %}
-    <p>No workouts logged for this month yet. <a href="{{ url_for('log_workout') }}" class="btn">Log one now</a>.</p>
+  <p>No workouts logged for this month yet. <a href="{{ url_for('log_workout') }}" class="btn btn-secondary">Log one now</a>.</p>
   {% endif %}
 </div>
 {% endblock %}

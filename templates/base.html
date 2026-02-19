@@ -4,132 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}GymTracker{% endblock %}</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #ECEFF1;
-      color: #212121;
-    }
-    .container {
-      max-width: 900px;  /* Adjusted max-width */
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    /* Navbar Styles */
-    nav {
-      background: #37474F;
-      padding: 1rem 2rem;
-      margin: 0 0 2rem 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      margin-left: 1rem;
-    }
-    nav a:hover {
-      color: #FF5722;
-    }
-    nav .brand {
-      color: #FF5722;
-      font-weight: 700;
-      font-size: 1.5rem;
-    }
-
-    /* Flash Messages */
-    .flash {
-      padding: 0.6rem 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: 8px;
-    }
-    .flash.success { background: #C8E6C9; color: #2E7D32; }
-    .flash.error { background: #FFCDD2; color: #C62828; }
-    .flash.info { background: #B3E5FC; color: #0277BD; }
-    .flash.warning { background: #FFF9C4; color: #F9A825; }
-
-    /* Card and Form Styles */
-    .card {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 1.5rem;
-    }
-    form label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #37474F;
-    }
-    form input,
-    form button {
-      padding: 0.75rem 1rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-    form input {
-      border: 2px solid #ECEFF1;
-      width: 100%;
-    }
-    form input:focus {
-      outline: none;
-      border-color: #FF5722;
-    }
-    form button,
-    .btn-primary {
-      background: #FF5722;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    form button:hover,
-    .btn-primary:hover {
-      background: #E64A19;
-    }
-
-    /* Custom Button Classes */
-    .btn-secondary {
-      background: #4CAF50;
-      color: #fff;
-    }
-    .btn-outline {
-      background: #ECEFF1;
-      color: #37474F;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   {% block extra_css %}{% endblock %}
 </head>
 <body>
-  {% if session.get('user_id') %}
-  <nav>
-    <span class="brand">GymTracker</span>
-    <div>
-      <a href="{{ url_for('dashboard') }}">Dashboard</a>
-      <a href="{{ url_for('log_workout') }}">Log a workout</a>
-      <a href="{{ url_for('progress') }}">Progress</a>
-      <a href="{{ url_for('update_payment') }}">Update Payment</a>
-      <a href="{{ url_for('logout') }}">Logout ({{ session.username }})</a>
-    </div>
-  </nav>
-  {% endif %}
-  <div class="container">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="flash {{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+  <div class="app-wrap">
+    {% if session.get('user_id') %}
+    <nav class="nav">
+      <a href="{{ url_for('dashboard') }}" class="brand">GymTracker</a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('log_workout') }}">Log workout</a>
+        <a href="{{ url_for('progress') }}">Progress</a>
+        <a href="{{ url_for('update_payment') }}">Payment</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+        <a href="{{ url_for('logout') }}">Logout <span class="user">({{ session.username }})</span></a>
+      </div>
+    </nav>
+    {% endif %}
+
+    {% block hero %}{% endblock %}
+
+    <main class="container page-content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
   </div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

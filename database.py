@@ -110,6 +110,23 @@ def add_payment_columns():
         conn.close()
 
 
+def add_workout(user_id, visited_at):
+    """Insert a workout for the user; returns True on success, False on failure."""
+    conn = get_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute(
+            "INSERT INTO workouts (user_id, date) VALUES (?, ?)",
+            (user_id, visited_at),
+        )
+        conn.commit()
+        return True
+    except Exception:
+        conn.rollback()
+        return False
+    finally:
+        conn.close()
+
 def get_workouts_by_user(user_id):
     """Get all workouts for a user."""
     conn = get_connection()
